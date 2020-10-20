@@ -1,0 +1,160 @@
+{% extends "Dashboard/base.html" %}
+{% load static %}
+{% block head %}
+    <script src="{% static 'js/gestionC.js' %}"></script>
+    <script src="http://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+{% endblock %}
+{% block body %}
+    <body id="page-top"></body>
+{% endblock %}
+{% block titulo %}
+    <h1>Gestion de Grafica - Categoria</h1>
+{% endblock %}
+{% block content %}
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-dark">Filtros</h6>
+        </div>
+    <div class="page-template">
+        <!-- Card Body -->
+        <div class="card-body" >
+            <form method="get" action="{% url 'GestionC' %}" id="formulario">
+              <div class="row">
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Categorias</label>
+                    <select id="categoria" name="categoria" class="form-control col-md-12 select2">
+
+                      <option value="id_estudiante__eco_condicion_tic">Condicion de las TIC</option>
+                      <option value="id_estudiante__eco_condicion_vivienda">Condicion de la vivienda</option>
+                      <option value="id_estudiante__estu_genero">Genero</option>
+                      <option value="id_estudiante__estu_rango_edad">Rango de Edad</option>
+                      <option value="id_estudiante__fami_estrato_vivienda">Estrato</option>
+                      <option value="id_estudiante__fami_ingreso_fmiliar_mensual">Ingresos Familiares</option>
+                      <option value="id_estudiante__fami_max_nivel_educa_padres">Nivel Educativo Padres</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Año</label>
+                    <select id="ano" name="ano" class="form-control col-md-5 select2">
+                      <option>TODOS</option>
+                        {%for objeto in ano %}
+                            <option value="{{ objeto.ano }}">{{ objeto.ano }}</option>
+
+                        {% endfor %}
+                    </select>
+                    <label for="exampleFormControlSelect1">Periodo</label>
+                    <select id="periodo" name="periodo" class="form-control col-md-5 select2">
+                        <script>
+                            var options = {
+                                    "TODOS": [""],
+                                    "2012" : ["2012_1","2012_2"],
+                                    '2013' : ["2013_1","2013_2"],
+                                    '2014' : ["2014_1","2014_2"],
+                                    '2015' : ["2015_1","2015_2"],
+                                    '2016' : ["2016_1","2016_2"],
+                            }
+                            $(function(){
+                                var fillSecondary = function(){
+                                    var selected = $('#ano').val();
+                                    $('#periodo').empty();
+                                    $('#periodo').append('<option>TODOS</option>');
+                                    options[selected].forEach(function(element,index){
+                                        $('#periodo').append('<option value="'+element+'">'+element+'</option>');
+                                    });
+                                }
+                                $('#ano').change(fillSecondary);
+                                fillSecondary();
+                            });
+                        </script>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Municipio</label>
+                    <select id="municipio" name="municipio" class="form-control col-md-12 select2">
+                        <option>TODOS</option>
+                        {%for objeto in muni %}
+                            <option>{{ objeto.cole_mcpio_ubicacion }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="exampleFormControlSelect1">Institucion</label>
+                    <select id="inst" name="inst" class="form-control col-md-12 select2">
+                        <script>
+                            var options1 = {
+                                    "TODOS": [""],
+                                    "IPIALES" : ["INSTITUCION EDUCATIVA LAS LAJAS","INSTITUCION EDUCATIVA NUESTRA SEÑORA DE LAS LAJAS","INSTITUCION EDUCATIVA TOMAS ARTURO SANCHEZ","INSTITUCION EDUCATIVA PEREZ PALLARES","INSTITUCION EDUCATIVA LA VICTORIA","INSTITUCIÓN EDUCATIVA TECNICO AGROINDUSTRIAL NAZARET","INSTITUCION EDUCATIVA JESUS DE NAZARETH","COLEGIO FILIPENSE","INSTITUCION EDUCATIVA NACIONAL SEMINARIO","COLEGIO INMACULADA CONCEPCION","INSTITUCION EDUCATIVA SAN FRANCISCO DE ASIS","INSTITUCION PARA JÓVENES Y ADULTOS PAULO FREIRE - SEDE PRINCIPAL","I.E.R. EL EMPALME - SEDE PRINCIPAL","INSTITUTO DE EDUCACIÓN TECNICA INESUR - SEDE PRINCIPAL","INSTITUCION EDUCATIVA GABRIEL GARCIA MARQUEZ","CENTRO EDUCATIVO IVAN ILICH  - SEDE PRINCIPAL","COLEGIO CHAMPAGNAT","INSTITUCION EDUCATIVA NACIONAL SUCRE","INSTITUCION EDUCATIVA CIUDAD DE IPIALES","INSTITUCION EDUCATIVA EL PLACER","I.E. MICROEMPRESARIAL LOS ANDES","COLEGIO INTEGRADO CIUDAD DE IPIALES","INSTITUCION EDUCATIVA AGROINDUSTRIAL LOS PASTOS","INSTITUTO TECNICO INDUSTRIAL CHAMPAGNAT","INSTITUCION EDUCATIVA DEL SUR","I.E.LAGUNA DE BACCA","COLEGIO DEPARTAMENTAL DE PROMOCION SOCIAL JUVENTUDES DE CRISTO OBRERO","INSTITUCION EDUCATIVA POLITECNICO MARCELO MIRANDA - SEDE PRINCIPAL","INSTITUCION EDUCATIVA PUENES","COLEGIO PARA ADULTOS EDUCAR - SEDE PRINCIPAL","COLEGIO SAN FELIPE NERI - SEDE PRINCIPAL","INSTITUTO CORPORACIÓN POLITÉCNICA DE NARIÑO - SEDE PRINCIPAL","INSTITUCION EDUCATIVA LORENZO DE YARAMAL","INSTITUCION EDUCATIVA ALFONSO LOPEZ","INSTITUCION EDUCATIVA SAN JUAN","COLEGIO INSTITUTO EDUCATIVO COLOMBIANO INSECOL"],
+                                    "CONTADERO" : ["CENTRO EDUCATIVO LAS DELICIAS","INSTITUCION EDUCATIVA COLEGIO DEPTAL. SAN CARLOS"],
+                                    "POTOSI" : ["INSTITUCION EDUCATIVA INDIGENA SANTA TERESITA","INSTITUCION EDUCATIVA SAN ANTONIO DE PADUA","INSTITUCION EDUCATIVA AGROPECUARIA LUIS ANTONIO MONTERO","INSTITUCION EDUCATIVA BAJO SINAI"],
+                                    "PUPIALES" : ["INSTITUCION EDUCATIVA LOS HEROES","INSTITUCION EDUCATIVA NORMAL SUPERIOR PIO XII","INSTITUCION EDUCATIVA TÉCNICA AGROPECUARIA JOSE MARIA HERNANDEZ","INSTITUCION EDUCATIVA  NACIONAL DE COMERCIO","COLEGIO NOCTURNO CIUDAD DE PUPIALES"],
+                                    "CUMBAL":["INSTITUCION EDUCATIVA INMACULADA CONCEPCION DE TALLAMBI","INSTITUCION EDUCATIVA TECNICA AGROPECUARIA INDIGENA PANAN","INSTITUTO SAN JUAN BOSCO","INSTITUCION EDUCATIVA YO REINARE BOYERA","INSTITUCION EDUCATIVA AGROECOLOGICO SAGRADO CORAZÓN DE JESÚS","INSTITUCION EDUCATIVA JOSE ANTONIO LLORENTE","INSTITUCION EDUCATIVA SAN JUAN DE MAYASQUER","I.E. INDÍGENA AGROAMBIENTAL MAYKER - SEDE PRINCIPAL","INSTITUCION EDUCATIVA ANDES DE CUAICAL","INSTITUCIÓN EDUCATIVA NUESTRO SEÑOR DEL RIO","INSTITUCION EDUCATIVA TECNICA AGROPECUARIA INDIGENA CUMBE"],
+                                    "ILES":["INSTITUCION EDUCATIVA SAN FRANCISCO DE ASIS","I.E. DEL NORTE MUNICIPIO DE ILES - SEDE PRINCIPAL","INSTITUCION EDUCATIVA JOSE ANTONIO GALAN"],
+                                    "CUASPUD CARLOSAMA":["CENTRO EDUCATIVO CAMILO TORRES","INSTITUCION EDUCATIVA SEBASTIAN GARCIA CARLOSAMA"],
+                                    "PUERRES":["INSTITUCION EDUCATIVA MONOPAMBA","INSTUCION EDUCATIVA JUAN XXIII","INSTITUCION EDUCATIVA SAN MATEO"],
+                                    "FUNES":["COLEGIO AGROPECUARIO MARISCAL SUCRE","COLEGIO MUNICIPIO DE FUNES"],
+                                    "GUAlMATAN":["INSTITUCION EDUCATIVA SAN JOSE","INSTITUCION EDUCATIVA TECNICA PROMOCION SOCIAL","INSTITUCION EDUCATIVA TECNICA SANTO TOMAS"],
+                                    "GUACHUCAL":["INSTITUTO SANTO TOMAS","INSTITUCION EDUCATIVA SAN JOSE DE CHILLANQUER","INSTITUCION EDUCATIVATECNICA AGROPECUARIA INDIGENA LIBARDO RAMIRO MUÑOZ","INSTITUCION EDUCATIVA TECNICA AGROPECUARIA SAN DIEGO","INSTITUCION EDUCATIVA GENARO LEON"],
+                                    "CORDOBA":["INSTITUCION EDUCATIVA SANTANDER","INSTITUCION EDUCATIVA SAN BARTOLOME","INSTITUCION EDUCATIVA NUESTRA SRA. DE FATIMA","INSTITUCION EDUCATIVA ARRAYANES","INSTITUCION EDUCATIVA TECNICA AGROECOLOGICA DEL RESGUARDO DE MALES","INSTITUTO DE EDUCACIÓN INESUR.GOB.CO - SEDE PRINCIPAL","INSTITUCION EDUCATIVA TECNICA AGROPECUARIA INDIGENA DEL RESGUARDO DE MALES."],
+                                    "ALDANA":["INSTITUCION EDUCATIVA NUESTRA SEÑORA DEL PILAR","INSTITUCION EDUCATIVA COMERCIAL SAN LUIS"],
+                            }
+                            $(function(){
+                                var fillSecondaryA = function(){
+                                    var selected1 = $('#municipio').val();
+                                    $('#inst').empty();
+                                    $('#inst').append('<option>General</option>');
+                                    options1[selected1].forEach(function(element,index){
+                                        $('#inst').append('<option value="'+element+'">'+element+'</option>');
+                                    });
+                                }
+                                $('#municipio').change(fillSecondaryA);
+                                fillSecondaryA();
+                            });
+                        </script>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Tipo de Grafica</label>
+                    <select id="graf" name="graf" class="form-control col-md-6 select2">
+                      <option value="bar">Barras</option>
+                      <option value="pie">Pastel</option>
+                      <option value="line">Linea</option>
+                      <option value="radar">Radar</option>
+                      <option value="polarArea">Area Polar</option>
+                      <option value="doughnut">Dona</option>
+{#                              <option value="bubble">Burbuja</option>#}
+                    </select>
+                </div>
+                      <button type="submit" class="btn btn-outline-primary">Generar</button>
+              </div>
+            </form>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="grafic-gest" data-url="{% url 'Gestion' %}" width="450" height="200" ></canvas>
+            <button class="btn btn-outline-primary" onclick="ExportPdf()">Descargar Grafica en PDF</button>
+          </div>
+        </div>
+    </div>
+    <script>
+        $(function (){
+           $('.select2').select2({
+               theme: "bootstrap4",
+               language: 'es',
+           });
+        });
+        function ExportPdf(){
+        kendo.drawing
+         .drawDOM("#grafic-gest",
+         {
+          forcePageBreak: ".page-break",
+          paperSize: "A4",
+          margin: { top: "1cm", bottom: "1cm" },
+          scale: 0.5,
+          height: 500,
+          template: $("#page-template").html(),
+          keepTogether: ".prevent-split"
+         })
+          .then(function(group){
+          kendo.drawing.pdf.saveAs(group, "Exported_Itinerary.pdf")
+         });
+        }
+    </script>
+{% endblock %}

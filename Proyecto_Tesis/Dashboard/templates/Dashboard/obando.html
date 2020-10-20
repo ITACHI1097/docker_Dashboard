@@ -1,0 +1,112 @@
+
+{% extends "Dashboard/base.html" %}
+        <!-- Begin Page Content -->
+        {% block button_dashboard %}
+           <!-- Nav Item - Dashboard -->
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'obando' %}">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
+      {% endblock %}
+        {% block body %}
+        <body id="page-top" onload="cargaFuncionesPrincipal()"></body>
+        {% endblock %}
+
+        {% block titulo %}
+            <h1>Exprovincia de Obando</h1>
+        {% endblock %}
+
+        {% block content %}
+        <div class="container-fluid" ></div>
+            <div class="row">
+                <div class="col-xl-4 col-md-6 mb-4" >
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de Estudiantes</div>
+                          <div id="estudiantes" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6 mb-4" >
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de Municipios</div>
+                          <div id="municipios" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-city fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6 mb-4" >
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de Instituciones</div>
+                          <div id="instituciones" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-university fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-7 sidebar-dark">
+                  <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-dark">Puntaje global por año</h6>
+
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="punt-anio" data-url="{% url 'punt-anio' %}" width="480" height="300" ></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-7">
+                  <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-dark">Numero de estudiantes por municipio</h6>
+
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="tot-est" data-url="{% url 'tot-est' %}" width="450" height="300" ></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        
+          <canvas id="grafic-prin" data-url="{% url 'grafic-prin' %}" width="800" height="450" ></canvas>
+
+
+        {% endblock %}
+          <!-- Content Row -->
+
+     

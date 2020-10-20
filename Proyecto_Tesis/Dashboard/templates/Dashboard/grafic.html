@@ -1,0 +1,90 @@
+
+{% extends "Dashboard/obando.html" %}
+        <!-- Begin Page Content -->
+        {% block head %}
+
+
+            <style>
+                .bs-example{
+                    margin: 20px;
+                }
+                .accordion .fa{
+                    margin-right: 0.5rem;
+                }
+            </style>
+            <script>
+                $(document).ready(function(){
+                    // Add minus icon for collapse element which is open by default
+                    $(".collapse.show").each(function(){
+                        $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus");
+                    });
+
+                    // Toggle plus minus icon on show hide of collapse element
+                    $(".collapse").on('show.bs.collapse', function(){
+                        $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+                    }).on('hide.bs.collapse', function(){
+                        $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+                    });
+                });
+            </script>
+        {% endblock %}
+        {% block body %}
+        <body id="page-top" onload="cargarFunciones()"></body>
+        {% endblock %}
+        {% block content %}
+        <div class="container-fluid" ></div>
+        <div class="bs-example">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingA">
+                        <h2 class="mb-0">
+                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseA"><i class="fa fa-plus"></i> Puntaje lectura critica por municipio</button>
+                        </h2>
+                    </div>
+                    <div id="collapseA" class="collapse show" aria-labelledby="headingA" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <canvas id="lect-criticC" data-url="{% url 'lect-CriticC' %}" width="800" height="450" ></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingB">
+                        <h2 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseB"><i class="fa fa-plus"></i> Numero de estudiantes que presentaron la Prueba por año</button>
+                        </h2>
+                    </div>
+                    <div id="collapseB" class="collapse" aria-labelledby="headingB" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <canvas id="estu-anio" data-url="{% url 'estu-anio' %}" width="800" height="450" ></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingC">
+                        <h2 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseC"><i class="fa fa-plus"></i> Número de estudiantes por rangos de edades</button>
+                        </h2>
+                    </div>
+                    <div id="collapseC" class="collapse" aria-labelledby="headingC" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <canvas id="estu-edad" data-url="{% url 'estu-edad' %}" width="800" height="450" ></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingD">
+                        <h2 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseD"><i class="fa fa-plus"></i> Puntaje global y numero de estudiantes por municipio</button>
+                        </h2>
+                    </div>
+                    <div id="collapseD" class="collapse" aria-labelledby="headingD" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <canvas id="desemp-ciu-edad" data-url="{% url 'desemp-ciu-edad' %}" width="800" height="450" ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}
+          <!-- Content Row -->
